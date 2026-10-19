@@ -98,27 +98,27 @@ def Gregory(x, y, z, expressao = None):
         Truncamento(x, z, expressao)
     return resultado
 
-def Truncamento(X, z, expressao_funcao):
+def Truncamento(X, z, expressao):
     m = len(X) - 1 # O grau do polinômio é o número de pontos menos 1
     
-    # Define 'x' como uma variável algébrica
+    #Define 'x' como uma variável do sympy
     x = sp.Symbol('x')
-    f = sp.sympify(expressao_funcao)
+    f = sp.sympify(expressao) #Converte a expressão digitada em uma expressão matemática que o computador entende 
     
-    # 1. Calcula a derivada contínua de ordem (m+1)
+    #Calcula a derivada contínua de ordem (m+1)
     derivada = sp.diff(f, x, m + 1)
     
-    # 2. Encontra o maior valor em módulo da derivada no intervalo [X_0, X_m]
-    # O np.linspace varre o intervalo testando pontos para achar o pico máximo
-    pontos = np.linspace(X[0], X[-1], 200)
-    max_derivada = max([abs(float(derivada.subs(x, p))) for p in pontos])
+    #Encontra o maior valor em módulo da derivada no intervalo [X0, Xm]
+    #O np.linspace divide o intervalo em 200 pontos e o varre testando pontos para achar o pico máximo
+    pontos = np.linspace(X[0], X[-1], 200) 
+    max_derivada = max([abs(float(derivada.subs(x, p))) for p in pontos]) # subs(x,p) substitui os valores. float() força o resultado ser um float. abs() coloca o valor em módulo. max() seliciona o maior valor
     
-    # 3. Calcula o produtório das distâncias: (x - X0)(x - X1)...(x - Xm)
+    #Calcula o produtório das distâncias: (x - X0)(x - X1)...(x - Xm)
     produtorio = 1.0
     for xi in X:
-        produtorio *= (z - xi)
+        produtorio = produtorio * (z - xi)
         
-    # 4. Aplica a fórmula completa do erro
+    #Aplica a fórmula completa do erro
     erro = (max_derivada / math.factorial(m + 1)) * abs(produtorio)
     
     print(f"Erro de Truncamento T_{m}({z}): {erro:.4f}")
