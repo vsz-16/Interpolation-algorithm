@@ -35,8 +35,8 @@ def Entrada():
     op = input("Digite o número escolhido:\n")
     if op == 1:
         #Recebe já no formato np. Split() separa os valores da string
-        x = np.array(input(f"Digite os {n+1} valores de X:\n").split(), dtype = float)
-        y = np.array(input(f"\nDigite os {n+1} valores de Y:\n").split(), dtype = float)
+        x = np.array(input(f"Digite os valores de X:\n").split(), dtype = float)
+        y = np.array(input(f"\nDigite os valores de Y:\n").split(), dtype = float)
         z = float(input("\nDigite o valor que quer interpolar:\n"))
         return x, y, z
     
